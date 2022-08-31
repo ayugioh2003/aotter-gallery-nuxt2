@@ -118,5 +118,10 @@
 <script>
 export default {
   name: 'NuxtTutorial',
+  data() {
+    return {
+      hi: 'hello world',
+    }
+  },
 }
 </script>
