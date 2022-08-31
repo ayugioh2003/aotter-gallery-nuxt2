@@ -3,18 +3,23 @@
   <div class="wrapper">
     <div>i'm normal color</div>
     <div class="inner">i'm pink</div>
+    {{ message }}
   </div>
 </template>
 
 <script>
-export default {
+import { defineComponent, ref } from '@nuxtjs/composition-api'
+
+export default defineComponent({
   name: 'NuxtTutorial',
-  data() {
+  setup() {
+    const message = ref('hello world')
     return {
-      hi: 'hello world',
+      message,
     }
   },
-}
+  head: {},
+})
 </script>
 
 <style lang="scss">
