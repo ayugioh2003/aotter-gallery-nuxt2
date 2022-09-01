@@ -4,9 +4,9 @@
       <button class="card-button">
         <font-awesome-icon icon="fa-solid fa-link" style="color: #566675" />
       </button>
-      <img src="https://via.placeholder.com/150/92c952" alt="" />
+      <img :src="thumbnailUrl" alt="" />
     </div>
-    <div class="card-body">accusamus rewq</div>
+    <div class="card-body">{{ title }}</div>
   </div>
 </template>
 
@@ -14,7 +14,25 @@
 import { defineComponent, ref } from '@nuxtjs/composition-api'
 
 export default defineComponent({
-  name: 'NuxtTutorial',
+  name: 'AotterCard',
+  props: {
+    id: {
+      type: Number,
+      required: true,
+    },
+    title: {
+      type: String,
+      required: true,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
+    thumbnailUrl: {
+      type: String,
+      required: true,
+    },
+  },
   setup() {
     const message = ref('this is card')
 
@@ -28,7 +46,11 @@ export default defineComponent({
 
 <style lang="scss">
 .card {
-  background-color: #dfe6ed;
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #dfe6ed;
+
   &-button {
     position: absolute;
     top: 4px;

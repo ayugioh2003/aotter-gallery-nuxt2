@@ -1,26 +1,44 @@
 <template>
   <div class="index">
-    <div class="container mx-auto">
-      <h1 class="text-2xl font-bold text-center py-8">Aotter Gallery</h1>
-      <section class="card-list">
-        <Card v-for="(item, index) in cardList" :key="index" />
+    <div class="mx-auto" style="max-width: 1000px; padding: 0, 32px">
+      <h1 class="text-2xl font-bold text-center py-24">Aotter Gallery</h1>
+      <section v-if="photos.length > 0" class="card-list">
+        <Card
+          v-for="(item, index) in photos.filter((v, i) => i < 20)"
+          :id="item.id"
+          :key="index"
+          :title="item.title"
+          :url="item.url"
+          :thumbnail-url="item.thumbnailUrl"
+        />
       </section>
     </div>
   </div>
 </template>
 
 <script>
-import { defineComponent, ref } from '@nuxtjs/composition-api'
+import { defineComponent, ref, onMounted } from '@nuxtjs/composition-api'
+import { holderApi } from '@/api/holder'
 
 export default defineComponent({
   name: 'IndexPage',
   setup() {
-    const message = ref('this is card')
-    const cardList = ref([...Array(60)].map((v) => v))
+    const { fetchPhotos } = holderApi()
+    const photos = ref([])
+
+    const loadPhotos = async () => {
+      const res = await fetchPhotos()
+      photos.value = res
+    }
+
+    onMounted(() => {
+      loadPhotos()
+      console.log('photos', photos)
+    })
 
     return {
-      message,
-      cardList,
+      photos,
+      loadPhotos,
     }
   },
 })
@@ -30,6 +48,6 @@ export default defineComponent({
 .card-list {
   @apply mb-8;
   @apply flex flex-wrap justify-around;
-  @apply gap-5 md:gap-10 lg:gap-20;
+  @apply gap-5 md:gap-10;
 }
 </style>
