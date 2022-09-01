@@ -33,6 +33,8 @@ export default {
     '@nuxtjs/tailwindcss',
     // https://composition-api.nuxtjs.org/getting-started/setup
     '@nuxtjs/composition-api/module',
+    // https://vueuse.org/guide/
+    '@vueuse/nuxt',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules

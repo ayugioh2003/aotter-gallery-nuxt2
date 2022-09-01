@@ -1,8 +1,13 @@
 <template>
   <div class="card">
     <div class="card-image relative">
-      <button class="card-button">
-        <font-awesome-icon icon="fa-solid fa-link" style="color: #566675" />
+      <button class="card-button" @click="copyUrl()">
+        <span v-if="copied" class="text-white">已複製網址</span>
+        <font-awesome-icon
+          v-else
+          icon="fa-solid fa-link"
+          style="color: #566675"
+        />
       </button>
       <img :src="thumbnailUrl" alt="" />
     </div>
@@ -11,7 +16,8 @@
 </template>
 
 <script>
-import { defineComponent, ref } from '@nuxtjs/composition-api'
+import { defineComponent, onMounted, ref } from '@nuxtjs/composition-api'
+import { useClipboard } from '@vueuse/core'
 
 export default defineComponent({
   name: 'AotterCard',
@@ -33,11 +39,24 @@ export default defineComponent({
       required: true,
     },
   },
-  setup() {
-    const message = ref('this is card')
+  setup(props) {
+    const source = ref('')
+    const { text, copy, copied, isSupported } = useClipboard({ source })
+
+    onMounted(() => {
+      source.value = window.location.origin + `?id=${props.id}`
+    })
+
+    const copyUrl = () => {
+      copy().then((test) => console.log('test'))
+    }
 
     return {
-      message,
+      text,
+      copy,
+      copied,
+      isSupported,
+      copyUrl,
     }
   },
   head: {},

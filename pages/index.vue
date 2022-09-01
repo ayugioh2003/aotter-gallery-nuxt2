@@ -17,31 +17,19 @@
 </template>
 
 <script>
-import { defineComponent, ref, useFetch } from '@nuxtjs/composition-api'
+import { defineComponent, useAsync } from '@nuxtjs/composition-api'
 import { holderApi } from '@/api/holder'
 
 export default defineComponent({
   name: 'IndexPage',
   setup() {
     const { fetchPhotos } = holderApi()
-    const photos = ref([])
 
-    const loadPhotos = async () => {
-      const res = await fetchPhotos()
-
-      photos.value = res
-      return res
-    }
-
-    const { fetch, fetchState } = useFetch(async () => {
-      await loadPhotos()
-    })
-    fetch() // Manually trigger a refetch
-    console.log('fetchState', fetchState) // // Access fetch error, pending and timestamp
+    const photos = useAsync(() => fetchPhotos())
 
     return {
       photos,
-      loadPhotos,
+      // loadPhotos,
     }
   },
 })
