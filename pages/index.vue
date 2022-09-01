@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { defineComponent, ref, onMounted } from '@nuxtjs/composition-api'
+import { defineComponent, ref, useFetch } from '@nuxtjs/composition-api'
 import { holderApi } from '@/api/holder'
 
 export default defineComponent({
@@ -28,13 +28,16 @@ export default defineComponent({
 
     const loadPhotos = async () => {
       const res = await fetchPhotos()
+
       photos.value = res
+      return res
     }
 
-    onMounted(() => {
-      loadPhotos()
-      console.log('photos', photos)
+    const { fetch, fetchState } = useFetch(async () => {
+      await loadPhotos()
     })
+    fetch() // Manually trigger a refetch
+    console.log('fetchState', fetchState) // // Access fetch error, pending and timestamp
 
     return {
       photos,
