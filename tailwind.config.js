@@ -14,6 +14,11 @@ module.exports = {
   },
   darkMode: false, // or 'media' or 'class'
   theme: {
+    colors: {
+      primary: '#50b6bd',
+      'primary-dark': '#3a969c',
+      border: '#dfe6ed',
+    },
     extend: {},
   },
   variants: {

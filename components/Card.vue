@@ -1,8 +1,15 @@
 <template>
-  <div class="card">
+  <div
+    class="card border"
+    :class="{
+      'border-red': isCurrentId,
+      'border-bigsize': isCurrentId,
+      'border-border': !isCurrentId,
+    }"
+  >
     <div class="card-image relative">
       <button class="card-button" @click="copyUrl()">
-        <span v-if="copied" class="text-white">已複製網址</span>
+        <span v-if="copied" class="text-white">已複製網址 {{ id }}</span>
         <font-awesome-icon
           v-else
           icon="fa-solid fa-link"
@@ -38,6 +45,10 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    isCurrentId: {
+      type: Boolean,
+      required: true,
+    },
   },
   setup(props) {
     const source = ref('')
@@ -68,7 +79,9 @@ export default defineComponent({
   width: 150px;
   display: flex;
   flex-direction: column;
-  border: 1px solid #dfe6ed;
+  &:hover {
+    outline: 4px solid aqua;
+  }
 
   &-button {
     position: absolute;
@@ -88,5 +101,12 @@ export default defineComponent({
     margin: 0 2px 2px 2px;
     padding: 8px 4px;
   }
+}
+
+.border-red {
+  border-color: red;
+}
+.border-bigsize {
+  border-width: 8px;
 }
 </style>
