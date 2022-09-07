@@ -25,9 +25,13 @@
 <script>
 import { defineComponent, onMounted, ref } from '@nuxtjs/composition-api'
 import { useClipboard } from '@vueuse/core'
+import FontAwesomeIcon from '@/plugins/fontawesome'
 
 export default defineComponent({
   name: 'AotterCard',
+  components: {
+    FontAwesomeIcon,
+  },
   props: {
     id: {
       type: Number,

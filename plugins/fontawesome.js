@@ -13,3 +13,5 @@ library.add(fas)
 
 // Register the component globally
 Vue.component('FontAwesomeIcon', FontAwesomeIcon)
+
+export default FontAwesomeIcon
