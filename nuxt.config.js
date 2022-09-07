@@ -50,5 +50,12 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  // https://stackoverflow.com/questions/71261022/npm-run-build-error-in-node-modules-fortawesome-fontawesome-svg-core-styles-c
+  build: {
+    postcss: {
+      plugins: {
+        'postcss-custom-properties': false,
+      },
+    },
+  },
 }
