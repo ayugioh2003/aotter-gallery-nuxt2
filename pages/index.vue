@@ -6,31 +6,33 @@
       <client-only>
         <Button
           v-if="startIndex >= 11"
-          class="mb-8"
+          class="mb-12"
           @click="startIndex -= size"
         >
           載入更多
         </Button>
       </client-only>
 
-      <section v-if="photos && photos.length > 0" class="card-list">
-        <Card
-          v-for="(item, index) in photos.filter(
-            (photo, i) => startIndex <= photo.id && photo.id <= endIndex
-          )"
-          :id="item.id"
-          :key="index"
-          :title="item.title"
-          :url="item.url"
-          :thumbnail-url="item.thumbnailUrl"
-          :is-current-id="item.id === Number(id)"
-        />
+      <section v-if="photos && photos.length > 0">
+        <transition-group name="list" class="card-list">
+          <Card
+            v-for="(item, index) in photos.filter(
+              (photo, i) => startIndex <= photo.id && photo.id <= endIndex
+            )"
+            :id="item.id"
+            :key="index"
+            :title="item.title"
+            :url="item.url"
+            :thumbnail-url="item.thumbnailUrl"
+            :is-current-id="item.id === Number(id)"
+          />
+        </transition-group>
       </section>
 
       <client-only>
         <Button
           v-if="endIndex < photos.length"
-          class="my-8"
+          class="my-12"
           @click="addPhotoAfter"
         >
           載入更多
@@ -131,5 +133,14 @@ export default defineComponent({
   @apply mb-8;
   @apply flex flex-wrap justify-around;
   @apply gap-5 md:gap-10;
+}
+
+.list-enter-active,
+.list-leave-active {
+  transition: all 1s;
+}
+.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(30px);
 }
 </style>
