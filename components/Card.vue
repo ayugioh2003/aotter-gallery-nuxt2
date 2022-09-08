@@ -83,8 +83,10 @@ export default defineComponent({
   width: 150px;
   display: flex;
   flex-direction: column;
+  transition: all 300ms;
   &:hover {
-    outline: 4px solid aqua;
+    box-shadow: 5px 5px 5px 1px aqua;
+    transform: translate(-5px, -5px);
   }
 
   &-button {
