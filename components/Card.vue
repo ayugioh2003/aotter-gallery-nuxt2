@@ -59,7 +59,7 @@ export default defineComponent({
     const { text, copy, copied, isSupported } = useClipboard({ source })
 
     onMounted(() => {
-      source.value = window.location.origin + `?id=${props.id}`
+      source.value = `${window.location.origin}?id=${props.id}`
     })
 
     const copyUrl = () => {
