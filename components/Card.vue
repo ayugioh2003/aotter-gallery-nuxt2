@@ -63,7 +63,7 @@ export default defineComponent({
     })
 
     const copyUrl = () => {
-      copy().then((test) => console.log('test'))
+      copy()
     }
 
     return {
