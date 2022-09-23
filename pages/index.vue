@@ -16,11 +16,11 @@
       <section v-if="photos && photos.length > 0">
         <transition-group name="list" class="card-list">
           <Card
-            v-for="(item, index) in photos.filter(
+            v-for="item in photos.filter(
               (photo, i) => startIndex <= photo.id && photo.id <= endIndex
             )"
             :id="item.id"
-            :key="index"
+            :key="item.id"
             :title="item.title"
             :url="item.url"
             :thumbnail-url="item.thumbnailUrl"
